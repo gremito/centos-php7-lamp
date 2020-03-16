@@ -32,6 +32,8 @@ steps:
     echo 'Hello World!!\n\nver 1.0.0' >> $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp/share.txt
     cat $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp/share.txt
 
+    cp -r $(System.DefaultWorkingDirectory)/bin $(Build.ArtifactStagingDirectory)
+
   displayName: 'Create share.txt'
 
 
