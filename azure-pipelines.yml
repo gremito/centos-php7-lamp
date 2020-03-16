@@ -12,7 +12,7 @@ pool:
 steps:
 
 - script: |
-    ¥docker build -t gremito/lamp .
+    docker build -t gremito/lamp .
     docker run -d -p 80:80 gremito/lamp
 
   displayName: 'build and run'
