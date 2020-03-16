@@ -18,5 +18,16 @@ steps:
   displayName: 'build and run'
 
 - script: |
-    curl --insecure https://127.0.0.1:80/
+    curl -i http://127.0.0.1:80/
+
   displayName: 'test'
+
+- script: |
+    mkdir -p $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
+    echo 'Hello World!!\n\nver 1.0.0' >> $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp/share.txt
+
+  displayName: 'Create share.txt'
+
+
+- publish: $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
+  artifact: centos-php7-lamp
