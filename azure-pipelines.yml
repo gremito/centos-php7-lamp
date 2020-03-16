@@ -11,21 +11,21 @@ pool:
 
 steps:
 
-- script: |
-    ls -lt /
-    ls -lt $(System.DefaultWorkingDirectory)/
-  displayName: 'ls -lt'
+# - script: |
+#     ls -lt /
+#     ls -lt $(System.DefaultWorkingDirectory)/
+#   displayName: 'ls -lt'
 
-- script: |
-    docker build -t gremito/lamp .
-    docker run -d -p 80:80 gremito/lamp
+# - script: |
+#     docker build -t gremito/lamp .
+#     docker run -d -p 80:80 gremito/lamp
 
-  displayName: 'build and run'
+#   displayName: 'build and run'
 
-- script: |
-    curl -i http://127.0.0.1:80/
+# - script: |
+#     curl -i http://127.0.0.1:80/
 
-  displayName: 'test'
+#   displayName: 'test'
 
 - script: |
     mkdir -p $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
@@ -40,13 +40,13 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    # pathToPublish: $(Build.ArtifactStagingDirectory)
-    pathToPublish: $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    # pathToPublish: $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
     artifactName: 'centos-php7-lamp'
     publishLocation: 'Container'
 
 - script: |
     ls -lt /
-    ls -lt $(System.DefaultWorkingDirectory)/
     ls -lt $(Build.ArtifactStagingDirectory)/
+    ls -lt $(System.DefaultWorkingDirectory)/
   displayName: 'ls -lt'
