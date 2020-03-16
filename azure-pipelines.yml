@@ -12,6 +12,11 @@ pool:
 steps:
 
 - script: |
+    ls -lt /
+    ls -lt $(System.DefaultWorkingDirectory)/
+  displayName: 'ls -lt'
+
+- script: |
     docker build -t gremito/lamp .
     docker run -d -p 80:80 gremito/lamp
 
@@ -25,9 +30,15 @@ steps:
 - script: |
     mkdir -p $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
     echo 'Hello World!!\n\nver 1.0.0' >> $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp/share.txt
+    cat $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp/share.txt
 
   displayName: 'Create share.txt'
 
 
 - publish: $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
   artifact: centos-php7-lamp
+
+- script: |
+    ls -lt /
+    ls -lt $(System.DefaultWorkingDirectory)/
+  displayName: 'ls -lt'
