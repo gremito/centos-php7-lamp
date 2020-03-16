@@ -35,10 +35,18 @@ steps:
   displayName: 'Create share.txt'
 
 
-- publish: $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
-  artifact: centos-php7-lamp
+# - publish: $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
+#   artifact: centos-php7-lamp
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    # pathToPublish: $(Build.ArtifactStagingDirectory)
+    pathToPublish: $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
+    artifactName: 'centos-php7-lamp'
+    publishLocation: 'Container'
 
 - script: |
     ls -lt /
     ls -lt $(System.DefaultWorkingDirectory)/
+    ls -lt $(Build.ArtifactStagingDirectory)/
   displayName: 'ls -lt'
