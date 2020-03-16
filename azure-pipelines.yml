@@ -16,3 +16,7 @@ steps:
     docker run -d -p 80:80 gremito/lamp
 
   displayName: 'build and run'
+
+- script: |
+    curl --insecure https://127.0.0.1:80/
+  displayName: 'test'
