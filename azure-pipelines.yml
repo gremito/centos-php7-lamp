@@ -32,10 +32,7 @@ steps:
     echo 'Hello World!!\n\nver 1.0.0' >> $(System.DefaultWorkingDirectory)/bin/share.txt
     cat $(System.DefaultWorkingDirectory)/bin/share.txt
 
-    # # cp -r $(System.DefaultWorkingDirectory)/bin $(Build.ArtifactStagingDirectory)
-    # cp -r $(System.DefaultWorkingDirectory)/bin $(Pipeline.Workspace)
-    # cd $(Pipeline.Workspace)
-    # pwd
+    cp -r $(System.DefaultWorkingDirectory)/bin $(Build.ArtifactStagingDirectory)
 
   displayName: 'Create share.txt'
 
