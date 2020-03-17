@@ -32,7 +32,10 @@ steps:
     echo 'Hello World!!\n\nver 1.0.0' >> $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp/share.txt
     cat $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp/share.txt
 
-    cp -r $(System.DefaultWorkingDirectory)/bin $(Build.ArtifactStagingDirectory)
+    # cp -r $(System.DefaultWorkingDirectory)/bin $(Build.ArtifactStagingDirectory)
+    cp -r $(System.DefaultWorkingDirectory)/bin $(Pipeline.Workspace)
+    cd $(Pipeline.Workspace)
+    pwd
 
   displayName: 'Create share.txt'
 
@@ -40,15 +43,21 @@ steps:
 # - publish: $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
 #   artifact: centos-php7-lamp
 
-- task: PublishBuildArtifacts@1
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     pathToPublish: $(Build.ArtifactStagingDirectory)
+#     # pathToPublish: $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
+#     artifactName: 'centos-php7-lamp'
+#     publishLocation: 'Container'
+
+- task: PublishPipelineArtifact@1
   inputs:
-    pathToPublish: $(Build.ArtifactStagingDirectory)
-    # pathToPublish: $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
+    targetPath: $(Pipeline.Workspace)
     artifactName: 'centos-php7-lamp'
-    publishLocation: 'Container'
 
 - script: |
     ls -lt /
     ls -lt $(Build.ArtifactStagingDirectory)/
     ls -lt $(System.DefaultWorkingDirectory)/
+    ls -lt $(Pipeline.Workspace)/
   displayName: 'ls -lt'
