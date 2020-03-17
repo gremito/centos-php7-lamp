@@ -28,9 +28,9 @@ steps:
 #   displayName: 'test'
 
 - script: |
-    mkdir -p $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
-    echo 'Hello World!!\n\nver 1.0.0' >> $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp/share.txt
-    cat $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp/share.txt
+    mkdir $(System.DefaultWorkingDirectory)/bin
+    echo 'Hello World!!\n\nver 1.0.0' >> $(System.DefaultWorkingDirectory)/bin/share.txt
+    cat $(System.DefaultWorkingDirectory)/bin/share.txt
 
     # # cp -r $(System.DefaultWorkingDirectory)/bin $(Build.ArtifactStagingDirectory)
     # cp -r $(System.DefaultWorkingDirectory)/bin $(Pipeline.Workspace)
@@ -43,14 +43,13 @@ steps:
 # - publish: $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
 #   artifact: centos-php7-lamp
 
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     pathToPublish: $(Build.ArtifactStagingDirectory)
-#     # pathToPublish: $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
-#     artifactName: 'centos-php7-lamp'
-#     publishLocation: 'Container'
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: 'b-centos-php7-lamp'
+    publishLocation: 'Container'
 
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: $(Pipeline.Workspace)
-    artifactName: 'centos-php7-lamp'
+    artifactName: 'p-centos-php7-lamp'
