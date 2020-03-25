@@ -11,42 +11,38 @@ pool:
 
 steps:
 
-# - script: |
-#     ls -lt /
-#     ls -lt $(System.DefaultWorkingDirectory)/
-#   displayName: 'ls -lt'
-
-# - script: |
-#     docker build -t gremito/lamp .
-#     docker run -d -p 80:80 gremito/lamp
-
-#   displayName: 'build and run'
-
-# - script: |
-#     curl -i http://127.0.0.1:80/
-
-#   displayName: 'test'
+- script: |
+    ls -lt /
+    ls -lt $(System.DefaultWorkingDirectory)/
+  displayName: 'ls -lt'
 
 - script: |
-    mkdir $(System.DefaultWorkingDirectory)/bin
-    echo 'Hello World!!\n\nver 1.0.0' >> $(System.DefaultWorkingDirectory)/bin/share.txt
-    cat $(System.DefaultWorkingDirectory)/bin/share.txt
+    docker build -t gremito/lamp .
+    docker run -d -p 80:80 gremito/lamp
 
-    cp -r $(System.DefaultWorkingDirectory)/bin $(Build.ArtifactStagingDirectory)
+  displayName: 'build and run'
 
-  displayName: 'Create share.txt'
+- script: |
+    curl -i http://127.0.0.1:80/
 
+  displayName: 'test'
 
-# - publish: $(System.DefaultWorkingDirectory)/bin/centos-php7-lamp
-#   artifact: centos-php7-lamp
+# - script: |
+#     mkdir $(System.DefaultWorkingDirectory)/bin
+#     echo 'Hello World!!\n\nver 1.0.0' >> $(System.DefaultWorkingDirectory)/bin/share.txt
+#     cat $(System.DefaultWorkingDirectory)/bin/share.txt
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: $(Build.ArtifactStagingDirectory)
-    artifactName: 'b-centos-php7-lamp'
-    publishLocation: 'Container'
+#     cp -r $(System.DefaultWorkingDirectory)/bin $(Build.ArtifactStagingDirectory)
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: $(Pipeline.Workspace)
-    artifactName: 'p-centos-php7-lamp'
+#   displayName: 'Create share.txt'
+
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     pathToPublish: $(Build.ArtifactStagingDirectory)
+#     artifactName: 'b-centos-php7-lamp'
+#     publishLocation: 'Container'
+
+# - task: PublishPipelineArtifact@1
+#   inputs:
+#     targetPath: $(Pipeline.Workspace)
+#     artifactName: 'p-centos-php7-lamp'
